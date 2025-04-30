@@ -6,7 +6,7 @@ const { ENABLE_SUBCOMMAND_PING } = process.env;
 
 const command = ENABLE_SUBCOMMAND_PING?.toLowerCase() === 'true' ? new ApplicationCommand({  data: new SlashCommandBuilder()
     .setName('ping')
-    .setDescription('現在のサーバー間(Discord⇔BOT)の遅延を表示します。'),
+    .setDescription('顯示目前伺服器之間 (Discord ↔ BOT) 的延遲。'),
   async execute(interaction): Promise<void> {
     await interaction.reply({
       embeds: [pingEmbed(client.ws.ping.toString())],
@@ -14,7 +14,7 @@ const command = ENABLE_SUBCOMMAND_PING?.toLowerCase() === 'true' ? new Applicati
     });
   },
 }) : new ApplicationCommand({
-  data: new SlashCommandBuilder().setName('empty').setDescription('empty command'),
+  data: new SlashCommandBuilder().setName('empty').setDescription('空指令'),
   hasSubCommands: false,
   execute: async () => {
     // empty execute-function

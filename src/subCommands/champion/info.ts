@@ -21,7 +21,7 @@ const CHAMPION_LEVEL_DISPLAY = {
  */
 const CHAMPION_ERROR_MESSAGES = {
   NO_NAME: config.championError.invalidChampion,
-  NOT_FOUND: (name: string) => `❌チャンピオン「${name}」は見つかりませんでした。`,
+  NOT_FOUND: (name: string) => `❌英雄「${name}」未找到。`,
 } as const;
 
 /**
@@ -57,7 +57,7 @@ export function createChampionEmbed(champion: Champion): EmbedBuilder {
   const embed = new EmbedBuilder()
     .setColor(Colors.Orange)
     .setTitle(champion.name)
-    .setDescription(champion.is_free ? `${champion.title}   フリーチャンピオン✅` : champion.title)
+    .setDescription(champion.is_free ? `${champion.title}   免費英雄✅` : champion.title)
     .setThumbnail(`https://ddragon.leagueoflegends.com/cdn/15.4.1/img/champion/${champion.id}.png`);
 
   const levelDisplay = (level: number) =>
@@ -68,16 +68,16 @@ export function createChampionEmbed(champion: Champion): EmbedBuilder {
       name: champion.is_wr
         ? '<:Icon_WR:1342960956036218942> <:Icon_LOL:1342961477224497232>'
         : '<:Icon_LOL:1342961477224497232>',
-      value: `マナタイプ : ${champion.type}`,
+      value: `能量類型 : ${champion.type}`,
     },
-    { name: 'レーン', value: getLanes(champion), inline: true },
-    { name: 'ロール', value: getTags(champion), inline: true },
-    { name: '難易度', value: levelDisplay(champion.difficult), inline: true },
-    { name: 'ダメージ', value: levelDisplay(champion.damage), inline: true },
-    { name: '耐久性', value: levelDisplay(champion.survive), inline: true },
-    { name: '補助性能', value: levelDisplay(champion.utility), inline: true },
+    { name: '路線', value: getLanes(champion), inline: true },
+    { name: '角色', value: getTags(champion), inline: true },
+    { name: '難度', value: levelDisplay(champion.difficult), inline: true },
+    { name: '傷害', value: levelDisplay(champion.damage), inline: true },
+    { name: '生存力', value: levelDisplay(champion.survive), inline: true },
+    { name: '輔助性能', value: levelDisplay(champion.utility), inline: true },
     {
-      name: '説明',
+      name: '簡介',
       value: champion.describe.length > 1024 ? champion.describe.slice(0, 1024) : champion.describe,
     },
   );

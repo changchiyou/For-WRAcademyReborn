@@ -4,5 +4,5 @@ export function pingEmbed(description: string): EmbedBuilder {
   return new EmbedBuilder()
     .setColor(Colors.Blue)
     .setTitle('Ping')
-    .setDescription(`ping値は${description}msです`);
+    .setDescription(`ping值為${description}ms`);
 }

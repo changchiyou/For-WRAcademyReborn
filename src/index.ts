@@ -221,7 +221,7 @@ function setupProcessExitHandler(): void {
   process.on('exit', (code) => {
     void (async () => {
       try {
-        const message = `⚠️ プロセス終了 (コード: ${code})`;
+        const message = `⚠️ 進程結束 (代碼: ${code})`;
         logger.error(message);
         await notifyAdminWebhook(message);
       } catch (error) {
@@ -234,7 +234,7 @@ function setupProcessExitHandler(): void {
   process.on('unhandledRejection', (error) => {
     void (async () => {
       handleError('Unhandled promise rejection', error);
-      await notifyAdminWebhook('⚠️ 未処理のPromise Rejectionが発生しました');
+      await notifyAdminWebhook('⚠️ 發生未處理的Promise Rejection');
     })();
   });
 
@@ -242,7 +242,7 @@ function setupProcessExitHandler(): void {
   process.on('uncaughtException', (error) => {
     handleError('Uncaught exception', error);
     void (async () => {
-      await notifyAdminWebhook('⚠️ 未処理の例外が発生しました');
+      await notifyAdminWebhook('⚠️ 發生未處理的例外狀況');
       process.exit(1);
     })();
   });

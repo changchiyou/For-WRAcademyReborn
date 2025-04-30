@@ -8,17 +8,17 @@ import {
 
 const { ENABLE_SUBCOMMAND_CHAMPION } = process.env;
 
-const command = ENABLE_SUBCOMMAND_CHAMPION?.toLowerCase() === 'true' ? new ApplicationCommand({  data: new SlashCommandBuilder()
+const command = ENABLE_SUBCOMMAND_CHAMPION?.toLowerCase() === 'true' ? new ApplicationCommand({ data: new SlashCommandBuilder()
     .setName('champion')
     .setDescription('Champion commands')
     .addSubcommand(
       new SlashCommandSubcommandBuilder()
         .setName('info')
-        .setDescription('指定したチャンピオンの情報を表示します')
+        .setDescription('顯示指定的英雄資訊')
         .addStringOption((option) =>
           option
             .setName('champion_name')
-            .setDescription('チャンピオンの名前')
+            .setDescription('英雄名稱')
             .setRequired(true)
             .setAutocomplete(true),
         ),
@@ -26,11 +26,11 @@ const command = ENABLE_SUBCOMMAND_CHAMPION?.toLowerCase() === 'true' ? new Appli
     .addSubcommand(
       new SlashCommandSubcommandBuilder()
         .setName('lanechamps')
-        .setDescription('指定したレーンのチャンピオン一覧を表示します')
+        .setDescription('顯示指定路線的英雄列表')
         .addStringOption((option) =>
           option
             .setName('lane')
-            .setDescription('レーンを指定')
+            .setDescription('指定路線')
             .setRequired(true)
             .addChoices(
               Object.entries(LANES).map(([, v]) => ({
@@ -44,12 +44,12 @@ const command = ENABLE_SUBCOMMAND_CHAMPION?.toLowerCase() === 'true' ? new Appli
       new SlashCommandSubcommandBuilder()
         .setName('random')
         .setDescription(
-          '指定したレーンまたは全レーンからチャンピオンをランダムに表示します。(1体~10体:デフォルト1体)',
+          '隨機顯示指定路線或所有路線的英雄（1至10個，預設為1個）',
         )
         .addStringOption((option) =>
           option
             .setName('lane')
-            .setDescription('レーンを指定')
+            .setDescription('指定路線')
             .setRequired(true)
             .addChoices(
               Object.entries(LANES).map(([, v]) => ({
@@ -61,7 +61,7 @@ const command = ENABLE_SUBCOMMAND_CHAMPION?.toLowerCase() === 'true' ? new Appli
         .addIntegerOption((option) =>
           option
             .setName('count')
-            .setDescription('ランダムに選ぶチャンピオンの数（1〜10）')
+            .setDescription('隨機選擇英雄的數量（1至10）')
             .setRequired(false)
             .setMinValue(1)
             .setMaxValue(10),
@@ -69,7 +69,7 @@ const command = ENABLE_SUBCOMMAND_CHAMPION?.toLowerCase() === 'true' ? new Appli
         .addBooleanOption((option) =>
           option
             .setName('wr_only')
-            .setDescription('Wild Riftに実装されているチャンピオン限定にする (デフォルト: true)')
+            .setDescription('限於已在激鬥峽谷存在的英雄（預設為true）')
             .setRequired(false),
         ),
     )
@@ -77,34 +77,34 @@ const command = ENABLE_SUBCOMMAND_CHAMPION?.toLowerCase() === 'true' ? new Appli
       new SlashCommandSubcommandBuilder()
         .setName('team')
         .setDescription(
-          '各レーン（Top, JG, Mid, ADC, Sup）から2体ずつ、計10体をランダムに選択（重複なし）',
+          '從各路線（Top, JG, Mid, ADC, Sup）隨機選擇2名英雄，共計10名（無重複）',
         )
         .addBooleanOption((option) =>
           option
             .setName('wr_only')
-            .setDescription('Wild Riftに実装されているチャンピオン限定にする (デフォルト: true)')
+            .setDescription('限於已在激鬥峽谷存在的英雄（預設為true）')
             .setRequired(false),
         ),
     )
     .addSubcommandGroup(
       new SlashCommandSubcommandGroupBuilder()
         .setName('stats')
-        .setDescription('チャンピオンのスタッツ')
+        .setDescription('英雄統計數據')
         .addSubcommand(
           new SlashCommandSubcommandBuilder()
             .setName('winrate')
-            .setDescription('チャンピオンのWILDRIFTでの勝率を確認する')
+            .setDescription('顯示個別英雄在激鬥峽谷中的勝率')
             .addStringOption((option) =>
               option
                 .setName('champion_name')
-                .setDescription('チャンピオンの名前')
+                .setDescription('英雄名稱')
                 .setRequired(true)
                 .setAutocomplete(true),
             )
             .addStringOption((option) =>
               option
                 .setName('rank')
-                .setDescription('対象にするランク（デフォルト：マスター＋）')
+                .setDescription('指定段位（預設為大師以上）')
                 .setRequired(false)
                 .addChoices(
                   Object.entries(RANK_RANGES).map(([, v]) => ({
@@ -116,7 +116,7 @@ const command = ENABLE_SUBCOMMAND_CHAMPION?.toLowerCase() === 'true' ? new Appli
             .addStringOption((option) =>
               option
                 .setName('lane')
-                .setDescription('レーンを指定（デフォルト：チャンピョン規定レーン）')
+                .setDescription('指定路線（預設為英雄規定路線）')
                 .setRequired(false)
                 .addChoices(
                   Object.entries(LANES).map(([, v]) => ({
@@ -129,11 +129,11 @@ const command = ENABLE_SUBCOMMAND_CHAMPION?.toLowerCase() === 'true' ? new Appli
         .addSubcommand(
           new SlashCommandSubcommandBuilder()
             .setName('lanewinrate')
-            .setDescription('レーンの勝率トップ5を表示します')
+            .setDescription('顯示各路線勝率前五名')
             .addStringOption((option) =>
               option
                 .setName('rank')
-                .setDescription('対象にするランク（デフォルト：マスター＋）')
+                .setDescription('指定段位（預設為大師以上）')
                 .setRequired(false)
                 .addChoices(
                   Object.entries(RANK_RANGES).map(([, v]) => ({
@@ -145,7 +145,7 @@ const command = ENABLE_SUBCOMMAND_CHAMPION?.toLowerCase() === 'true' ? new Appli
             .addStringOption((option) =>
               option
                 .setName('lane')
-                .setDescription('レーンを指定（デフォルト：全て）')
+                .setDescription('指定路線（預設為全部）')
                 .setRequired(false)
                 .addChoices(
                   Object.entries(LANES).map(([, v]) => ({
@@ -158,11 +158,11 @@ const command = ENABLE_SUBCOMMAND_CHAMPION?.toLowerCase() === 'true' ? new Appli
         .addSubcommand(
           new SlashCommandSubcommandBuilder()
             .setName('pickrate')
-            .setDescription('レーンのピック率トップ5を表示します')
+            .setDescription('顯示各路線選取率前五名')
             .addStringOption((option) =>
               option
                 .setName('rank')
-                .setDescription('対象にするランク（デフォルト：マスター＋）')
+                .setDescription('指定段位（預設為大師以上）')
                 .setRequired(false)
                 .addChoices(
                   Object.entries(RANK_RANGES).map(([, v]) => ({
@@ -174,7 +174,7 @@ const command = ENABLE_SUBCOMMAND_CHAMPION?.toLowerCase() === 'true' ? new Appli
             .addStringOption((option) =>
               option
                 .setName('lane')
-                .setDescription('レーンを指定（デフォルト：全て）')
+                .setDescription('指定路線（預設為全部）')
                 .setRequired(false)
                 .addChoices(
                   Object.entries(LANES).map(([, v]) => ({
@@ -186,18 +186,18 @@ const command = ENABLE_SUBCOMMAND_CHAMPION?.toLowerCase() === 'true' ? new Appli
             .addBooleanOption((option) =>
               option
                 .setName('banrate')
-                .setDescription('バン率を考慮します（デフォルト：FALSE）')
+                .setDescription('考慮禁用率（預設為false）')
                 .setRequired(false),
             ),
         )
         .addSubcommand(
           new SlashCommandSubcommandBuilder()
             .setName('strength')
-            .setDescription('システム的に評価されているチャンピオンを表示します。')
+            .setDescription('顯示各路線系統評分前五名')
             .addStringOption((option) =>
               option
                 .setName('rank')
-                .setDescription('対象にするランク（デフォルト：マスター＋）')
+                .setDescription('指定段位（預設為大師以上）')
                 .setRequired(false)
                 .addChoices(
                   Object.entries(RANK_RANGES).map(([, v]) => ({
@@ -209,7 +209,7 @@ const command = ENABLE_SUBCOMMAND_CHAMPION?.toLowerCase() === 'true' ? new Appli
             .addStringOption((option) =>
               option
                 .setName('lane')
-                .setDescription('レーンを指定（デフォルト：全て）')
+                .setDescription('指定路線（預設為全部）')
                 .setRequired(false)
                 .addChoices(
                   Object.entries(LANES).map(([, v]) => ({

@@ -25,7 +25,7 @@ export function createPageEmbed(
   const start = page * perPage;
   const currentChamps = championNames.slice(start, start + perPage);
   return new EmbedBuilder()
-    .setTitle(`${getLaneEmoji(lane)}${lane.toUpperCase()}のチャンピオン一覧`)
+    .setTitle(`${getLaneEmoji(lane)}${lane.toUpperCase()}英雄列表`)
     .setDescription(currentChamps.map((name) => `・**${name}**`).join('\n'))
     .setFooter({ text: `${page + 1} / ${totalPages} (${championNames.length})` })
     .setColor(Colors.Orange);

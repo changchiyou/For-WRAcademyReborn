@@ -37,7 +37,7 @@ export default class ApplicationCommand {
 
         if (!commandName) {
           await interaction.reply({
-            content: '❌このコマンドは存在しません！',
+            content: '❌這個指令不存在！',
             flags: MessageFlags.Ephemeral,
           });
         } else {

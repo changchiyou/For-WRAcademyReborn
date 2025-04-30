@@ -40,13 +40,13 @@ function createLanePickRateEmbed(
     .map((lane) => {
       const fieldValue = createPickRateField(lane, rank, isBanRate).toString();
       return {
-        name: `${lane.name}でのピック率${lane.emoji}`,
-        value: fieldValue.length > 0 ? fieldValue : '❌データがありません。',
+        name: `${lane.name}的選取率${lane.emoji}`,
+        value: fieldValue.length > 0 ? fieldValue : '❌沒有資料。',
       };
     });
   return new EmbedBuilder()
-    .setTitle(`各レーンでのピック率トップ:${rank.emoji}${rank.name}`)
-    .setDescription('⚒️:ピック率 ❌:バン率')
+    .setTitle(`各路線選取率前五名:${rank.emoji}${rank.name}`)
+    .setDescription('⚒️:選取率 ❌:禁用率')
     .setColor(Colors.Aqua)
     .addFields(fields);
 }

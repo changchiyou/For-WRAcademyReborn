@@ -24,7 +24,7 @@ function formatChampionStats(stat: HeroStats, index: number): string {
 
   return (
     `${rankEmoji}:**${champion?.name}**\n` +
-    `┗ ⚔️:${stat.strength ?? '-'}ポイント ${getRankEmojiByStrengthLevel(stat?.strength_level ?? null)}`
+    `┗ ⚔️:${stat.strength ?? '-'}點 ${getRankEmojiByStrengthLevel(stat?.strength_level ?? null)}`
   );
 }
 
@@ -45,13 +45,13 @@ function createLaneStrengthEmbed(
     .map((lane) => {
       const fieldValue = createStrengthField(lane, rank).toString();
       return {
-        name: `${lane.name}でのシステムの評価${lane.emoji}`,
-        value: fieldValue.length > 0 ? fieldValue : '❌データがありません。',
+        name: `${lane.name}系統評分${lane.emoji}`,
+        value: fieldValue.length > 0 ? fieldValue : '❌沒有數據。',
       };
     });
   return new EmbedBuilder()
-    .setTitle(`各レーンでの評価トップ:${rank.emoji}${rank.name}`)
-    .setDescription('システム的に計算されたチャンピオンの評価 by RIOT')
+    .setTitle(`各路線系統評分排行:${rank.emoji}${rank.name}`)
+    .setDescription('騰訊計算的系統英雄評分')
     .setColor(Colors.Aqua)
     .addFields(fields);
 }

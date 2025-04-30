@@ -52,9 +52,9 @@ function createChampionWinRateEmbed(
 ): EmbedBuilder {
   return new EmbedBuilder()
     .setColor(Colors.Aqua)
-    .setTitle(`${champion.name}の勝率:${rank.name}${rank.emoji}`)
+    .setTitle(`${champion.name}的勝率:${rank.name}${rank.emoji}`)
     .setThumbnail(`https://ddragon.leagueoflegends.com/cdn/15.4.1/img/champion/${champion.id}.png`)
-    .setDescription('⚔️:勝率 ⚒️:ピック率 ❌:バン率')
+    .setDescription('⚔️:勝率 ⚒️:選取率 ❌:禁用率')
     .addFields(
       targetLanes
         .filter((lane) => lane.value !== 'all')

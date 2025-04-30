@@ -56,13 +56,13 @@ function createLaneWinRateEmbed(
     .map((lane) => {
       const fieldValue = createWinRateField(lane, rank).toString();
       return {
-        name: `${lane.name}での勝率${lane.emoji}`,
-        value: fieldValue.length > 0 ? fieldValue : '❌データがありません。',
+        name: `${lane.name}的勝率${lane.emoji}`,
+        value: fieldValue.length > 0 ? fieldValue : '❌沒有數據。',
       };
     });
   return new EmbedBuilder()
-    .setTitle(`各レーンでの勝率トップ:${rank.emoji}${rank.name}`)
-    .setDescription('⚔️:勝率 ⚒️:ピック率')
+    .setTitle(`各路的勝率最高:${rank.emoji}${rank.name}`)
+    .setDescription('⚔️:勝率 ⚒️:選擇率')
     .setColor(Colors.Aqua)
     .addFields(fields);
 }

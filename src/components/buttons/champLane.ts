@@ -38,7 +38,7 @@ export default new ButtonCommand({
       await interaction.followUp({
         embeds: [
           interactionErrorEmbed(
-            `${config.ButtonError.invalidUser}\n自分で実行するには**\`/lanechamp\`**を実行して下さい。`,
+            `${config.ButtonError.invalidUser}\n要自己執行請輸入**\`/lanechamp\`**。`,
           ),
         ],
         flags: MessageFlags.Ephemeral,

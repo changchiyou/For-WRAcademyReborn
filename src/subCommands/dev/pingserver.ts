@@ -1,3 +1,4 @@
+import { pingEmbed } from '@/embeds/pingEmbed.js';
 import SubCommand from '@/templates/SubCommand.js';
 import {
   ActionRowBuilder,
@@ -6,7 +7,6 @@ import {
   MessageFlags,
   type ChatInputCommandInteraction,
 } from 'discord.js';
-import { pingEmbed } from '@/embeds/pingEmbed.js';
 
 export default new SubCommand({
   async execute(interaction: ChatInputCommandInteraction): Promise<void> {
@@ -15,7 +15,7 @@ export default new SubCommand({
     const button = new ActionRowBuilder<ButtonBuilder>().addComponents(
       new ButtonBuilder()
         .setCustomId(`devping-${ping}`)
-        .setLabel('📟リポスト')
+        .setLabel('📟公開發佈')
         .setStyle(ButtonStyle.Danger),
     );
 

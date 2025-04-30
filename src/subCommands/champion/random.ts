@@ -8,11 +8,11 @@ import { Colors, EmbedBuilder, MessageFlags, type ChatInputCommandInteraction } 
 export default new SubCommand({
   async execute(interaction: ChatInputCommandInteraction): Promise<void> {
     await interaction.deferReply();
-    const lane = interaction.options.getString('lane', true);
+    const lane = interaction.options.getString('lane', true) as LaneKey;
     let count = interaction.options.getInteger('count', false) ?? 1;
     const wrOnly = interaction.options.getBoolean('wr_only') ?? true;
 
-    let champions = getChampionsByLane(lane as LaneKey);
+    let champions = getChampionsByLane(lane);
     if (wrOnly) {
       champions = champions.filter((champ) => champ.is_wr);
     }
@@ -31,8 +31,8 @@ export default new SubCommand({
 
     const embed = new EmbedBuilder()
       .setTitle(
-        `🎲 ランダムチャンピオン${wrOnly ? '<:WR:1343276543945740298>' : '<:SR:1343276485942841485>'}：` +
-          `${count}体 (${lane === 'all' ? '全レーン' : lane.toUpperCase()}${getLaneEmoji(lane)})`,
+        `🎲 隨機英雄${wrOnly ? '<:WR:1343276543945740298>' : '<:SR:1343276485942841485>'}：` +
+          `${count}位 (${lane === 'all' ? '全路線' : lane.toUpperCase()}${getLaneEmoji(lane)})`,
       )
       .setDescription(
         randomChampions.map((champ) => `**・${champ.name}** - *${champ.title}*`).join('\n'),
@@ -40,7 +40,7 @@ export default new SubCommand({
       .setThumbnail(
         `https://ddragon.leagueoflegends.com/cdn/15.4.1/img/champion/${randomChampions[0].id}.png`,
       )
-      .setFooter({ text: `選択数: ${count}` })
+      .setFooter({ text: `選擇數量: ${count}` })
       .setColor(Colors.Orange);
 
     await interaction.editReply({ embeds: [embed] });

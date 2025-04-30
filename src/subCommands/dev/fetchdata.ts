@@ -13,7 +13,7 @@ export default new SubCommand({
 
       if (interaction.user.id !== client.application?.owner?.id) {
         await interaction.editReply({
-          embeds: [interactionErrorEmbed('❌あなたはこのコマンドを利用できません。')],
+          embeds: [interactionErrorEmbed('❌你沒有權限使用這個命令。')],
         });
         return;
       }
@@ -21,35 +21,35 @@ export default new SubCommand({
       // Send initial status message
       const initialEmbed = new EmbedBuilder()
         .setColor(Colors.Yellow)
-        .setDescription('データの更新を開始します...');
+        .setDescription('開始更新數據...');
       await interaction.editReply({ embeds: [initialEmbed] });
 
       // Update champion data and show progress
       const championEmbed = new EmbedBuilder()
         .setColor(Colors.Blue)
-        .setDescription('チャンピオンデータを更新中...');
+        .setDescription('正在更新英雄數據...');
       await interaction.editReply({ embeds: [championEmbed] });
       await fetchChampionData();
 
       // Update Wild Rift data and show progress
       const wildRiftEmbed = new EmbedBuilder()
         .setColor(Colors.Purple)
-        .setDescription('WildRiftデータを更新中...');
+        .setDescription('正在更新激鬥峽谷數據...');
       await interaction.editReply({ embeds: [wildRiftEmbed] });
       await fetchWildRiftData();
 
       // Send completion message
       const successEmbed = new EmbedBuilder()
         .setColor(Colors.Green)
-        .setDescription('✅ すべてのデータの更新が完了しました！');
+        .setDescription('✅ 已完成所有數據的更新！');
       await interaction.editReply({ embeds: [successEmbed] });
     } catch (error) {
       // Handle and log any errors during the update process
-      logger.error('データ更新中にエラーが発生しました:', error);
+      logger.error('更新數據時發生錯誤:', error);
       await interaction.editReply({
         embeds: [
           interactionErrorEmbed(
-            '❌データの更新中にエラーが発生しました。\n詳細はログを確認してください。',
+            '❌更新數據時發生錯誤。\n請檢查日誌以獲取更多信息。',
           ),
         ],
       });

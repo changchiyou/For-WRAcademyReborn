@@ -20,7 +20,7 @@ export default new SubCommand({
 
         delCnt++;
       } catch (err) {
-        logger.warn('個別のメッセージ削除に失敗しました', err);
+        logger.warn('個別訊息刪除失敗', err);
         continue;
       }
     }
@@ -29,7 +29,7 @@ export default new SubCommand({
       embeds: [
         new EmbedBuilder()
           .setColor(Colors.Aqua)
-          .setDescription(`${delCnt}件のメッセージを削除しました。`),
+          .setDescription(`已刪除 ${delCnt} 則訊息。`),
       ],
     });
   },
